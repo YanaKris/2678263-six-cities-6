@@ -1,4 +1,4 @@
-import OfferComponent from '../../components/offer-item/offer-item';
+import OfferItem from '../../components/offer-item/offer-item';
 type MainPageProps = {
   offersCount: number;
 };
@@ -117,11 +117,11 @@ export default function MainPage({ offersCount }: MainPageProps) {
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
-                <OfferComponent />
-                <OfferComponent />
-                <OfferComponent />
-                <OfferComponent />
-                <OfferComponent />
+                <OfferItem />
+                <OfferItem />
+                <OfferItem />
+                <OfferItem />
+                <OfferItem />
               </div>
             </section>
             <div className="cities__right-section">
