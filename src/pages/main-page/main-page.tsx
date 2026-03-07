@@ -1,4 +1,4 @@
-import OfferComponent from '../../components/offer-component/offer-component';
+import OfferComponent from '../../components/offer-item/offer-item';
 type MainPageProps = {
   offersCount: number;
 };
