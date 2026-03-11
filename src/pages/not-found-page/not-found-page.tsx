@@ -1,4 +1,4 @@
-export default function LoginPage() {
+export default function NotFoundPage() {
   return (
     <div className="page page--favorites-empty">
       <header className="header">
