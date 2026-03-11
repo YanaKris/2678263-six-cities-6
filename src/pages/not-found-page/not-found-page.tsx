@@ -36,7 +36,9 @@ export default function LoginPage() {
             <h1 className="visually-hidden">Favorites (empty)</h1>
             <div className="favorites__status-wrapper">
               <b className="favorites__status">404 Not Found.</b>
-              <a className="footer__logo-link" href="main.html"><p className="favorites__status-description">Go to main.</p></a>
+              <a className="page__main" href="#">
+                <p className="page__main">Go to main</p>
+              </a>
             </div>
           </section>
         </div>
