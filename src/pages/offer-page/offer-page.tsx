@@ -1,4 +1,4 @@
-export function OfferPage() {
+export default function OfferPage() {
   return (
     <div className="page">
       <header className="header">
