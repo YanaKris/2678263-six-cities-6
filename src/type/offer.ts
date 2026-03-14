@@ -29,14 +29,14 @@ export type Offer = {
 };
 
 export type OfferPreview = Pick<Offer,
-  | "id"
-  | "title"
-  | "type"
-  | "price"
-  | "previewImage"
-  | "city"
-  | "location"
-  | "isFavorite"
-  | "isPremium"
-  | "rating"
+  | 'id'
+  | 'title'
+  | 'type'
+  | 'price'
+  | 'previewImage'
+  | 'city'
+  | 'location'
+  | 'isFavorite'
+  | 'isPremium'
+  | 'rating'
 >;

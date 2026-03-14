@@ -1,5 +1,6 @@
 import { Offer } from '../type/offer';
 import { OfferType } from '../const';
+const AVATAR_URL = 'https://i.pravatar.cc/128';
 
 export const offers: Offer[] = [
   {
@@ -8,7 +9,7 @@ export const offers: Offer[] = [
     type: OfferType.Apartment,
     price: 120,
 
-    previewImage: 'https://url-to-image/image.png',
+    previewImage: 'img/apartment-01.jpg',
 
     city: {
       name: 'Amsterdam',
@@ -35,7 +36,7 @@ export const offers: Offer[] = [
 
     host: {
       name: 'Oliver',
-      avatarUrl: 'https://url-to-image/avatar.png',
+      avatarUrl: `${AVATAR_URL}?rnd=${Math.random()}`,
       isPro: true,
     },
 
@@ -52,7 +53,7 @@ export const offers: Offer[] = [
     type: OfferType.Room,
     price: 70,
 
-    previewImage: 'https://url-to-image/image.png',
+    previewImage: 'img/apartment-small-03.jpg',
 
     city: {
       name: 'Paris',
@@ -79,7 +80,7 @@ export const offers: Offer[] = [
 
     host: {
       name: 'Olivia',
-      avatarUrl: 'https://url-to-image/avatar.png',
+      avatarUrl: `${AVATAR_URL}?rnd=${Math.random()}`,
       isPro: true,
     },
 
@@ -93,7 +94,7 @@ export const offers: Offer[] = [
     type: OfferType.House,
     price: 270,
 
-    previewImage: 'https://url-to-image/image.png',
+    previewImage: 'img/apartment-small-04.jpg',
 
     city: {
       name: 'Dusseldorf',
@@ -120,7 +121,7 @@ export const offers: Offer[] = [
 
     host: {
       name: 'Max',
-      avatarUrl: 'https://url-to-image/avatar.png',
+      avatarUrl: `${AVATAR_URL}?rnd=${Math.random()}`,
       isPro: true,
     },
 
@@ -129,46 +130,46 @@ export const offers: Offer[] = [
     maxAdults: 6,
   },
   {
-  id: '4',
-  title: 'Modern apartment in Brussels',
-  type: OfferType.Apartment,
-  price: 150,
+    id: '4',
+    title: 'Modern apartment in Brussels',
+    type: OfferType.Apartment,
+    price: 150,
 
-  previewImage: 'https://url-to-image/image.png',
+    previewImage:  'img/apartment-02.jpg',
 
-  city: {
-    name: 'Brussels',
+    city: {
+      name: 'Brussels',
+      location: {
+        latitude: 50.8503,
+        longitude: 4.3517,
+        zoom: 10
+      }
+    },
+
     location: {
       latitude: 50.8503,
       longitude: 4.3517,
       zoom: 10
-    }
-  },
+    },
 
-  location: {
-    latitude: 50.8503,
-    longitude: 4.3517,
-    zoom: 10
-  },
+    isFavorite: true,
+    isPremium: false,
+    rating: 4.4,
 
-  isFavorite: true,
-  isPremium: false,
-  rating: 4.4,
+    description: 'Modern apartment near the city center.',
+    bedrooms: 2,
+    goods: ['Wi-Fi', 'Washing machine'],
 
-  description: 'Modern apartment near the city center.',
-  bedrooms: 2,
-  goods: ['Wi-Fi', 'Washing machine'],
+    host: {
+      name: 'Sophie',
+      avatarUrl: `${AVATAR_URL}?rnd=${Math.random()}`,
+      isPro: false
+    },
 
-  host: {
-    name: 'Sophie',
-    avatarUrl: 'https://url-to-image/avatar.png',
-    isPro: false
-  },
+    images: [
+      'https://url-to-image/image1.png'
+    ],
 
-  images: [
-    'https://url-to-image/image1.png'
-  ],
-
-  maxAdults: 3
-}
+    maxAdults: 3
+  }
 ];
