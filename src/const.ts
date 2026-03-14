@@ -12,3 +12,18 @@ export enum AuthorizationStatus {
   NoAuth = 'NO_AUTH',
   Unknown = 'UNKNOWN',
 }
+
+export enum OfferType {
+  Apartment = "apartment",
+  Room = "room",
+  House = "house",
+  Hotel = "hotel"
+}
+
+export type CityName =
+  | "Paris"
+  | "Cologne"
+  | "Brussels"
+  | "Amsterdam"
+  | "Hamburg"
+  | "Dusseldorf";
