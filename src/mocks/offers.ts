@@ -41,22 +41,25 @@ export const offers: Offer[] = [
     },
 
     images: [
-      'https://url-to-image/image1.png',
-      'https://url-to-image/image2.png',
+      'img/apartment-01.jpg',
+      'img/apartment-02.jpg',
+      'img/apartment-03.jpg',
+      'img/studio-01.jpg',
+      'img/apartment-01.jpg',
     ],
 
     maxAdults: 4,
   },
   {
     id: '2',
-    title: 'Beautiful room in Paris',
+    title: 'Beautiful room in Amsterdam',
     type: OfferType.Room,
     price: 70,
 
     previewImage: 'img/apartment-small-03.jpg',
 
     city: {
-      name: 'Paris',
+      name: 'Amsterdam',
       location: {
         latitude: 48.8566,
         longitude: 2.3522,
@@ -72,7 +75,7 @@ export const offers: Offer[] = [
 
     isFavorite: true,
     isPremium: true,
-    rating: 3.5,
+    rating: 3.0,
 
     description: 'Small but very cozy room in the center.',
     bedrooms: 1,
@@ -84,20 +87,26 @@ export const offers: Offer[] = [
       isPro: true,
     },
 
-    images: ['https://url-to-image/image1.png'],
+    images: [
+      'img/apartment-01.jpg',
+      'img/apartment-02.jpg',
+      'img/apartment-03.jpg',
+      'img/studio-01.jpg',
+      'img/apartment-01.jpg',
+    ],
 
     maxAdults: 1,
   },
   {
     id: '3',
-    title: 'Spacious house in Dusseldorf',
+    title: 'Spacious house in Amsterdam',
     type: OfferType.House,
     price: 270,
 
     previewImage: 'img/apartment-small-04.jpg',
 
     city: {
-      name: 'Dusseldorf',
+      name: 'Amsterdam',
       location: {
         latitude: 48.8566,
         longitude: 2.3522,
@@ -113,11 +122,21 @@ export const offers: Offer[] = [
 
     isFavorite: true,
     isPremium: true,
-    rating: 3.5,
+    rating: 4.5,
 
     description: 'Large house perfect for family vacations.',
     bedrooms: 4,
-    goods: ['Wi-Fi'],
+    goods: [
+      'Wi-Fi',
+      'Washing machine',
+      'Dishwasher',
+      'Towels',
+      'Heating',
+      'Coffee machine',
+      'Baby seat',
+      'Kitchen',
+      'Dishwasher',
+    ],
 
     host: {
       name: 'Max',
@@ -125,31 +144,37 @@ export const offers: Offer[] = [
       isPro: true,
     },
 
-    images: ['https://url-to-image/image1.png'],
+    images: [
+      'img/apartment-01.jpg',
+      'img/apartment-02.jpg',
+      'img/apartment-03.jpg',
+      'img/studio-01.jpg',
+      'img/apartment-01.jpg',
+    ],
 
     maxAdults: 6,
   },
   {
     id: '4',
-    title: 'Modern apartment in Brussels',
+    title: 'Modern apartment in Amsterdam',
     type: OfferType.Apartment,
     price: 150,
 
-    previewImage:  'img/apartment-02.jpg',
+    previewImage: 'img/apartment-02.jpg',
 
     city: {
-      name: 'Brussels',
+      name: 'Amsterdam',
       location: {
         latitude: 50.8503,
         longitude: 4.3517,
-        zoom: 10
-      }
+        zoom: 10,
+      },
     },
 
     location: {
       latitude: 50.8503,
       longitude: 4.3517,
-      zoom: 10
+      zoom: 10,
     },
 
     isFavorite: true,
@@ -163,13 +188,17 @@ export const offers: Offer[] = [
     host: {
       name: 'Sophie',
       avatarUrl: `${AVATAR_URL}?rnd=${Math.random()}`,
-      isPro: false
+      isPro: false,
     },
 
     images: [
-      'https://url-to-image/image1.png'
+      'img/apartment-01.jpg',
+      'img/apartment-02.jpg',
+      'img/apartment-03.jpg',
+      'img/studio-01.jpg',
+      'img/apartment-01.jpg',
     ],
 
-    maxAdults: 3
-  }
+    maxAdults: 3,
+  },
 ];

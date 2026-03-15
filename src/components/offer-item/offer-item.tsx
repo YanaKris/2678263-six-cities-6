@@ -7,6 +7,8 @@ type OfferItemProps = {
   offer: OfferPreview;
   block: string;
   size?: OfferItemSize;
+  onOfferItemHover?: () => void;
+  onOfferItemLeave?: () => void;
 };
 
 const sizeMap: Record<OfferItemSize, { width: string; height: string }> = {
@@ -18,11 +20,23 @@ export default function OfferItem({
   offer,
   block,
   size = 'large',
+  onOfferItemHover,
+  onOfferItemLeave,
 }: OfferItemProps) {
   const { isPremium, previewImage, id, price, rating, title, type } = offer;
 
   return (
-    <article className={`${block}__card place-card`}>
+    <article
+      className={`${block}__card place-card`}
+      onMouseEnter={() => {
+        console.log('hover enter:', offer.id);
+        onOfferItemHover?.();
+      }}
+      onMouseLeave={() => {
+        console.log('hover leave:', offer.id);
+        onOfferItemLeave?.();
+      }}
+    >
       {isPremium && (
         <div className="place-card__mark">
           <span>Premium</span>
@@ -53,7 +67,7 @@ export default function OfferItem({
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{ width: '80%' }}></span>
+            <span style={{ width: `${(offer.rating / 5) * 100}%` }}></span>
             <span className="visually-hidden">{rating}</span>
           </div>
         </div>
