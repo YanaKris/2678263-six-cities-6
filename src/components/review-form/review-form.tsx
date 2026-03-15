@@ -14,11 +14,6 @@ export default function ReviewForm() {
 
   const handleSubmit = (evt: FormEvent) => {
     evt.preventDefault();
-
-    console.log({
-      rating,
-      review,
-    });
     setRating(null);
     setReview('');
   };

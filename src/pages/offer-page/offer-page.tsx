@@ -28,8 +28,11 @@ export default function OfferPage({ offers }: OfferPageProps) {
         <section className="offer">
           <div className="offer__gallery-container container">
             <div className="offer__gallery">
-              {images.map((image, index) => (
-                <div key={`${image}-${index}`} className="offer__image-wrapper">
+              {Array.from(new Set(images)).map((image) => (
+                <div
+                  key={`${offer.id}-${image}`}
+                  className="offer__image-wrapper"
+                >
                   <img
                     className="offer__image"
                     src={image}
@@ -59,7 +62,8 @@ export default function OfferPage({ offers }: OfferPageProps) {
                 <div className="offer__stars rating__stars">
                   <span
                     style={{ width: `${(offer.rating / 5) * 100}%` }}
-                  ></span>
+                  >
+                  </span>
                   <span className="visually-hidden">Rating</span>
                 </div>
                 <span className="offer__rating-value rating__value">

@@ -29,11 +29,9 @@ export default function OfferItem({
     <article
       className={`${block}__card place-card`}
       onMouseEnter={() => {
-        console.log('hover enter:', offer.id);
         onOfferItemHover?.();
       }}
       onMouseLeave={() => {
-        console.log('hover leave:', offer.id);
         onOfferItemLeave?.();
       }}
     >
