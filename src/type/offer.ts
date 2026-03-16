@@ -3,7 +3,8 @@ import { Location } from './location';
 import { User } from './user';
 import { OfferType } from '../const';
 
-export type Offer = {
+
+export type OfferPreview = {
   id: string;
   title: string;
   type: OfferType;
@@ -17,7 +18,9 @@ export type Offer = {
   isFavorite: boolean;
   isPremium: boolean;
   rating: number;
+};
 
+export type Offer = OfferPreview & {
   description: string;
   bedrooms: number;
   goods: string[];
@@ -27,16 +30,3 @@ export type Offer = {
 
   maxAdults: number;
 };
-
-export type OfferPreview = Pick<Offer,
-  | 'id'
-  | 'title'
-  | 'type'
-  | 'price'
-  | 'previewImage'
-  | 'city'
-  | 'location'
-  | 'isFavorite'
-  | 'isPremium'
-  | 'rating'
->;
