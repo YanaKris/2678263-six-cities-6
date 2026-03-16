@@ -6,30 +6,32 @@ import OfferPage from './pages/offer-page/offer-page';
 import PrivateRoute from './components/private-route/private-route';
 import { Route, BrowserRouter, Routes } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus } from './const';
+import { Offer } from './type/offer';
 
 type AppScreenProps = {
-  offersCount: number;
+  offers: Offer[];
 };
 
-export default function App({ offersCount }: AppScreenProps) {
+export default function App({ offers }: AppScreenProps) {
   return (
     <BrowserRouter>
       <Routes>
         <Route
           path={AppRoute.Main}
-          element={<MainPage offersCount={offersCount} />}
+          element={<MainPage offers={offers} />}
         />
         <Route path={AppRoute.Login} element={<LoginPage />} />
         <Route
           path={AppRoute.Favorites}
           element={
-            <PrivateRoute authorizationStatus={AuthorizationStatus.NoAuth}>
-              <FavoritesPage />
+            <PrivateRoute authorizationStatus={AuthorizationStatus.Auth}>
+              <FavoritesPage offers={offers}/>
             </PrivateRoute>
           }
         />
-        <Route path={AppRoute.Offer} element={<OfferPage />} />
+        <Route path="/offer/:offerId" element={<OfferPage offers={offers} />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
-    </BrowserRouter>);
+    </BrowserRouter>
+  );
 }
