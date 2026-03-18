@@ -3,12 +3,14 @@ import { Offer } from '../../type/offer';
 import CitiesList from '../../components/cities-list/cities-list';
 import Header from '../../components/header/header';
 import PlacesSorting from '../../components/places-sorting/places-sorting';
+import Map from '../../components/map/map';
 
 type MainPageProps = {
   offers: Offer[];
 };
 
 export default function MainPage({ offers }: MainPageProps) {
+  const city = offers[0].city;
   return (
     <div className="page page--gray page--main">
       <Header />
@@ -30,7 +32,7 @@ export default function MainPage({ offers }: MainPageProps) {
               <OfferList offers={offers} />
             </section>
             <div className="cities__right-section">
-              <section className="cities__map map"></section>
+              <section className="cities__map map"><Map city={city} offers={offers} /></section>
             </div>
           </div>
         </div>
