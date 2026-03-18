@@ -16,14 +16,14 @@ export const offers: Offer[] = [
       location: {
         latitude: 52.370216,
         longitude: 4.895168,
-        zoom: 10,
+        zoom: 12,
       },
     },
 
     location: {
-      latitude: 52.370216,
-      longitude: 4.895168,
-      zoom: 10,
+      latitude: 52.3609553943508,
+      longitude: 4.85309666406198,
+      zoom: 12,
     },
 
     isFavorite: false,
@@ -61,16 +61,16 @@ export const offers: Offer[] = [
     city: {
       name: 'Amsterdam',
       location: {
-        latitude: 48.8566,
-        longitude: 2.3522,
-        zoom: 10,
+        latitude: 52.370216,
+        longitude: 4.895168,
+        zoom: 12,
       },
     },
 
     location: {
-      latitude: 48.8566,
-      longitude: 2.3522,
-      zoom: 10,
+      latitude: 52.3609553943508,
+      longitude: 4.85309666406198,
+      zoom: 12,
     },
 
     isFavorite: true,
@@ -108,16 +108,16 @@ export const offers: Offer[] = [
     city: {
       name: 'Amsterdam',
       location: {
-        latitude: 48.8566,
-        longitude: 2.3522,
-        zoom: 10,
+        latitude: 52.370216,
+        longitude: 4.895168,
+        zoom: 12,
       },
     },
 
     location: {
-      latitude: 48.8566,
-      longitude: 2.3522,
-      zoom: 10,
+      latitude: 52.3909553943508,
+      longitude: 4.929309666406198,
+      zoom: 12,
     },
 
     isFavorite: true,
@@ -165,16 +165,16 @@ export const offers: Offer[] = [
     city: {
       name: 'Amsterdam',
       location: {
-        latitude: 50.8503,
-        longitude: 4.3517,
-        zoom: 10,
+        latitude: 52.370216,
+        longitude: 4.895168,
+        zoom: 12,
       },
     },
 
     location: {
-      latitude: 50.8503,
-      longitude: 4.3517,
-      zoom: 10,
+      latitude: 52.3809553943508,
+      longitude: 4.939309666406198,
+      zoom: 12,
     },
 
     isFavorite: true,
