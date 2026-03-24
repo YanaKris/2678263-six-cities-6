@@ -201,4 +201,89 @@ export const offers: Offer[] = [
 
     maxAdults: 3,
   },
+  {
+    id: '5',
+    title: 'Charming studio in Le Marais',
+    type: OfferType.Apartment,
+    price: 95,
+
+    previewImage:'img/apartment-02.jpg',
+
+    city: {
+      name: 'Paris',
+      location: {
+        latitude: 48.856614,
+        longitude: 2.352222,
+        zoom: 12,
+      },
+    },
+
+    location: {
+      latitude: 48.85837,
+      longitude: 2.3639,
+      zoom: 12,
+    },
+
+    isFavorite: false,
+    isPremium: true,
+    rating: 4.7,
+
+    description: 'Cozy studio in the heart of historic Le Marais district.',
+    bedrooms: 1,
+    goods: ['Wi-Fi', 'Heating', 'Kitchen', 'Coffee machine'],
+
+    host: {
+      name: 'Camille',
+      avatarUrl: `${AVATAR_URL}?rnd=${Math.random()}`,
+      isPro: true,
+    },
+
+    images: [
+
+    ],
+
+    maxAdults: 2,
+  },
+  {
+    id: '6',
+    title: 'Elegant room near Eiffel Tower',
+    type: OfferType.Room,
+    price: 110,
+
+    previewImage: 'img/apartment-02.jpg',
+
+    city: {
+      name: 'Paris',
+      location: {
+        latitude: 48.856614,
+        longitude: 2.352222,
+        zoom: 12,
+      },
+    },
+
+    location: {
+      latitude: 48.858844,
+      longitude: 2.294481,
+      zoom: 12,
+    },
+
+    isFavorite: true,
+    isPremium: false,
+    rating: 4.2,
+
+    description: 'Bright room with a view, walking distance to Eiffel Tower.',
+    bedrooms: 1,
+    goods: ['Wi-Fi', 'Heating', 'Towels'],
+
+    host: {
+      name: 'Antoine',
+      avatarUrl: `${AVATAR_URL}?rnd=${Math.random()}`,
+      isPro: false,
+    },
+
+    images: [
+    ],
+
+    maxAdults: 1,
+  },
 ];

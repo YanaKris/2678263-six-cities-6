@@ -1,48 +1,54 @@
 import { useEffect, useRef } from 'react';
-import { icon, marker, layerGroup } from 'leaflet';
+import { Icon, Marker, layerGroup } from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import { useMap } from '../../hooks/use-map';
+import useMap from '../../hooks/use-map';
 import { Offer } from '../../type/offer';
+import { City } from '../../type/city';
 
-import { MARKER_DEFAULT } from '../../const';
+import { MARKER_DEFAULT, MARKER_ACTIVE } from '../../const';
 
 type MapProps = {
-  city: {
-    location: {
-      latitude: number;
-      longitude: number;
-      zoom: number;
-    };
-  };
+  city: City;
   offers: Offer[];
 };
 
-export default function Map({ city, offers }: MapProps) {
-  const mapRef = useRef<HTMLDivElement>(null);
-  const mapRefInstance = useMap(mapRef, city);
+const defaultCustomIcon = new Icon({
+  iconUrl: MARKER_DEFAULT,
+});
 
-  const defaultCustomIcon = icon({
-    iconUrl: MARKER_DEFAULT,
-  });
+const currentCustomIcon = new Icon({
+  iconUrl: MARKER_ACTIVE,
+});
+
+export default function Map(props: MapProps): JSX.Element {
+  const { city, offers } = props;
+
+  const mapRef = useRef(null);
+  const map = useMap(mapRef, city);
 
   useEffect(() => {
-    const map = mapRefInstance.current;
-    if (!map) {
-      return;
+    if (map) {
+      const markerLayer = layerGroup().addTo(map);
+      offers.forEach((point) => {
+        const marker = new Marker({
+          lat: point.location.latitude,
+          lng: point.location.longitude,
+        });
+
+        marker
+          .setIcon(
+            point.isFavorite
+              ? currentCustomIcon
+              : defaultCustomIcon,
+          )
+          .addTo(markerLayer);
+      });
+
+      return () => {
+        map.removeLayer(markerLayer);
+      };
     }
+  }, [map, offers]);
 
-    const markerLayer = layerGroup().addTo(map);
-
-    offers.forEach((offer) => {
-      marker([offer.location.latitude, offer.location.longitude], {
-        icon: defaultCustomIcon,
-      }).addTo(markerLayer);
-    });
-
-    return () => {
-      map.removeLayer(markerLayer);
-    };
-  }, [mapRefInstance, offers, defaultCustomIcon]);
-
-  return <div ref={mapRef} style={{ height: '100%' }} />;
+  return <div style={{ height: '100%' }} ref={mapRef}></div>;
 }
