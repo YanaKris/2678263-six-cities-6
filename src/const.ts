@@ -35,3 +35,7 @@ export const CITIES: CityName[] = [
   'Hamburg',
   'Dusseldorf',
 ];
+
+export const MARKER_DEFAULT = 'img/pin.svg';
+
+export const MARKER_ACTIVE = 'img/pin-active.svg';

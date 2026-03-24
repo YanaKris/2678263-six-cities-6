@@ -1,11 +1,14 @@
 import { CityName, CITIES } from '../../const';
 
-
 type CitiesListProps = {
   activeCity: CityName;
+  onCityClick: (city: CityName) => void;
 };
 
-export default function CitiesList({ activeCity }: CitiesListProps) {
+export default function CitiesList({
+  activeCity,
+  onCityClick,
+}: CitiesListProps) {
   return (
     <ul className="locations__list tabs__list">
       {CITIES.map((city) => (
@@ -15,6 +18,10 @@ export default function CitiesList({ activeCity }: CitiesListProps) {
               city === activeCity ? 'tabs__item--active' : ''
             }`}
             href="#"
+            onClick={(evt) => {
+              evt.preventDefault();
+              onCityClick(city);
+            }}
           >
             <span>{city}</span>
           </a>
