@@ -1,14 +1,17 @@
 import { CityName, CITIES } from '../../const';
+import { useDispatch } from 'react-redux';
+import { setCity } from '../../store/action';
+import { AppDispatch } from '../../type/state';
 
 type CitiesListProps = {
-  activeCity: CityName;
-  onCityClick: (city: CityName) => void;
+activeCity: CityName;
 };
 
 export default function CitiesList({
   activeCity,
-  onCityClick,
 }: CitiesListProps) {
+  const dispatch = useDispatch<AppDispatch>();
+
   return (
     <ul className="locations__list tabs__list">
       {CITIES.map((city) => (
@@ -20,7 +23,7 @@ export default function CitiesList({
             href="#"
             onClick={(evt) => {
               evt.preventDefault();
-              onCityClick(city);
+              dispatch(setCity(city));
             }}
           >
             <span>{city}</span>
