@@ -1,5 +1,4 @@
 import { useParams, Navigate } from 'react-router-dom';
-// import { Offer } from '../../type/offer';
 import { AppRoute } from '../../const';
 import ReviewForm from '../../components/review-form/review-form';
 import Header from '../../components/header/header';

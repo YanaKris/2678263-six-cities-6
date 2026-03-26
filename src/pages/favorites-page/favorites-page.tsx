@@ -6,7 +6,8 @@ import { State } from '../../type/state';
 import { NameSpace } from '../../const';
 
 export default function FavoritesPage() {
-  const favoriteOffers = useSelector((state: State) => state[NameSpace.Offers].offers);
+  const offers = useSelector((state: State) => state[NameSpace.Offers].offers);
+  const favoriteOffers = offers.filter((offer) => offer.isFavorite === true);
   const favoritesByCity = favoriteOffers.reduce<Record<string, Offer[]>>(
     (acc, offer) => {
       const city = offer.city.name;
@@ -19,7 +20,7 @@ export default function FavoritesPage() {
 
       return acc;
     },
-    {}
+    {},
   );
 
   return (
