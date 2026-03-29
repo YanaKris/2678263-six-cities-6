@@ -1,13 +1,12 @@
 import { Offer } from '../../type/offer';
 import OfferItem from '../../components/offer-item/offer-item';
 import Header from '../../components/header/header';
-import { useSelector } from 'react-redux';
-import { State } from '../../type/state';
-import { NameSpace } from '../../const';
+import { useAppSelector } from '../../hooks';
+import { selectOffers } from '../../store/selectors';
 
 export default function FavoritesPage() {
-  const offers = useSelector((state: State) => state[NameSpace.Offers].offers);
-  const favoriteOffers = offers.filter((offer) => offer.isFavorite === true);
+  const offers = useAppSelector(selectOffers);
+  const favoriteOffers = offers.filter((offer) => offer.isFavorite);
   const favoritesByCity = favoriteOffers.reduce<Record<string, Offer[]>>(
     (acc, offer) => {
       const city = offer.city.name;

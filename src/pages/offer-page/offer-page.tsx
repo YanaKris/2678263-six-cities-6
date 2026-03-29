@@ -3,13 +3,12 @@ import { AppRoute } from '../../const';
 import ReviewForm from '../../components/review-form/review-form';
 import Header from '../../components/header/header';
 import OfferItem from '../../components/offer-item/offer-item';
-import { useSelector } from 'react-redux';
-import { State } from '../../type/state';
-import { NameSpace } from '../../const';
+import { useAppSelector } from '../../hooks';
+import { selectOffers } from '../../store/selectors';
 
 export default function OfferPage() {
   const { offerId } = useParams();
-  const offers = useSelector((state: State) => state[NameSpace.Offers].offers);
+  const offers = useAppSelector(selectOffers);
   const offer = offers.find((item) => item.id === offerId);
 
   if (!offer) {

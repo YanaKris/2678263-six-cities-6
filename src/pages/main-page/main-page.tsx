@@ -4,9 +4,8 @@ import CitiesList from '../../components/cities-list/cities-list';
 import Header from '../../components/header/header';
 import PlacesSorting from '../../components/places-sorting/places-sorting';
 import Map from '../../components/map/map';
-import { useSelector } from 'react-redux';
-import { State } from '../../type/state';
-import { NameSpace } from '../../const';
+import { useAppSelector } from '../../hooks';
+import { selectOffers, selectCity } from '../../store/selectors';
 
 // добавила временно для теста переключения городов
 const cities: City[] = [
@@ -61,11 +60,12 @@ const cities: City[] = [
 ];
 
 export default function MainPage() {
-  const offers = useSelector((state: State) => state[NameSpace.Offers].offers);
 
-  const cityName = useSelector((state: State) => state[NameSpace.Offers].city);
+  const offers = useAppSelector(selectOffers);
+  const cityName = useAppSelector(selectCity);
   const city = cities.find((c) => c.name === cityName)!;
   const filteredOffers = offers.filter((offer) => offer.city.name === cityName);
+
   return (
     <div className="page page--gray page--main">
       <Header />
@@ -73,9 +73,7 @@ export default function MainPage() {
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
           <section className="locations container">
-            <CitiesList
-              activeCity={city.name}
-            />
+            <CitiesList activeCity={city.name} />
           </section>
         </div>
         <div className="cities">

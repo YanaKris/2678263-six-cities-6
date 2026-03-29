@@ -1,16 +1,13 @@
 import { CityName, CITIES } from '../../const';
-import { useDispatch } from 'react-redux';
 import { setCity } from '../../store/action';
-import { AppDispatch } from '../../type/state';
+import { useAppDispatch } from '../../hooks';
 
 type CitiesListProps = {
-activeCity: CityName;
+  activeCity: CityName;
 };
 
-export default function CitiesList({
-  activeCity,
-}: CitiesListProps) {
-  const dispatch = useDispatch<AppDispatch>();
+export default function CitiesList({ activeCity }: CitiesListProps) {
+  const dispatch = useAppDispatch();
 
   return (
     <ul className="locations__list tabs__list">
