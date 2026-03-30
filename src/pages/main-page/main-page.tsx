@@ -1,4 +1,5 @@
 import OfferList from '../../components/offer-list/offer-list';
+import { Offer } from '../../type/offer';
 import { City } from '../../type/city';
 import CitiesList from '../../components/cities-list/cities-list';
 import Header from '../../components/header/header';
@@ -6,10 +7,6 @@ import PlacesSorting from '../../components/places-sorting/places-sorting';
 import Map from '../../components/map/map';
 import { useState } from 'react';
 import { SORT, SortType } from '../../const';
-
-type MainPageProps = {
-  offers: Offer[];
-};
 import { useAppSelector } from '../../hooks';
 import { selectOffers, selectCity } from '../../store/selectors';
 
@@ -65,14 +62,13 @@ const cities: City[] = [
   },
 ];
 
-export default function MainPage({ offers }: MainPageProps) {
-  const [activeCity, setActiveCity] = useState(cities[0]);
+export default function MainPage() {
   const [sortType, setSortType] = useState<SortType>(SORT.POPULAR);
   const [activeOfferId, setActiveOfferId] = useState<string | null>(null);
-  const city = activeCity;
-  const filteredOffers = offers.filter(
-    (offer) => offer.city.name === city.name,
-  );
+  const offers = useAppSelector(selectOffers);
+  const cityName = useAppSelector(selectCity);
+  const city = cities.find((c) => c.name === cityName)!;
+  const filteredOffers = offers.filter((offer) => offer.city.name === cityName);
 
   const sortOffers = {
     [SORT.POPULAR]: (items: Offer[]) => items,
@@ -104,7 +100,7 @@ export default function MainPage({ offers }: MainPageProps) {
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
               <b className="places__found">
-                {filteredOffers.length} places to stay in {cityName}
+                {filteredOffers.length} places to stay in {city.name}
               </b>
               <PlacesSorting activeSort={sortType} onSortChange={setSortType} />
               <OfferList

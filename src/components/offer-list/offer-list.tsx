@@ -7,7 +7,6 @@ type OfferListProps = {
 };
 
 export default function OfferList({ offers, onOfferHover }: OfferListProps) {
-
   return (
     <div className="cities__places-list places__list tabs__content">
       {offers.map((offer) => (

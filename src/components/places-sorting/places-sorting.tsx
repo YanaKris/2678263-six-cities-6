@@ -6,7 +6,10 @@ type TypeSortProps = {
   onSortChange: (sort: SortType) => void;
 };
 
-export default function PlacesSorting({ activeSort, onSortChange }: TypeSortProps) {
+export default function PlacesSorting({
+  activeSort,
+  onSortChange,
+}: TypeSortProps) {
   const [isOpen, setIsOpen] = useState(false);
 
   const handleSortClick = (sort: SortType) => {

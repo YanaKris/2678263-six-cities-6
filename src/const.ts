@@ -36,6 +36,15 @@ export const CITIES: CityName[] = [
   'Dusseldorf',
 ];
 
+export enum NameSpace {
+  Offers = 'OFFERS',
+  Offer = 'OFFER',
+  NearPlaces = 'NEAR_PLACES',
+  Reviews = 'REVIEWS',
+  Favorites = 'FAVORITES',
+  User = 'USER',
+}
+
 export const MARKER_DEFAULT = 'img/pin.svg';
 
 export const MARKER_ACTIVE = 'img/pin-active.svg';
@@ -50,11 +59,3 @@ export const SORT = {
 export const SORT_OPTIONS = Object.values(SORT);
 
 export type SortType = (typeof SORT_OPTIONS)[number];
-export enum NameSpace {
-  Offers = 'OFFERS',
-  Offer = 'OFFER',
-  NearPlaces = 'NEAR_PLACES',
-  Reviews = 'REVIEWS',
-  Favorites= 'FAVORITES',
-  User = 'USER',
-}
