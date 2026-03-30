@@ -1,13 +1,12 @@
 import { OfferPreview } from '../../type/offer';
 import OfferItem from '../offer-item/offer-item';
-import { useState } from 'react';
 
 type OfferListProps = {
   offers: OfferPreview[];
+  onOfferHover: (id: string | null) => void;
 };
 
-export default function OfferList({ offers }: OfferListProps) {
-  const [activeOfferId, setActiveOfferId] = useState<string | null>(null);
+export default function OfferList({ offers, onOfferHover }: OfferListProps) {
 
   return (
     <div className="cities__places-list places__list tabs__content">
@@ -16,11 +15,10 @@ export default function OfferList({ offers }: OfferListProps) {
           key={offer.id}
           offer={offer}
           block="cities"
-          onOfferItemHover={() => setActiveOfferId(offer.id)}
-          onOfferItemLeave={() => setActiveOfferId(null)}
+          onOfferItemHover={() => onOfferHover(offer.id)}
+          onOfferItemLeave={() => onOfferHover(null)}
         />
       ))}
-      <span>{activeOfferId}</span>
     </div>
   );
 }

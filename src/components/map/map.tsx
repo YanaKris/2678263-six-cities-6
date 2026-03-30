@@ -10,6 +10,7 @@ import { MARKER_DEFAULT, MARKER_ACTIVE } from '../../const';
 type MapProps = {
   city: City;
   offers: Offer[];
+  activeOfferId: Offer['id'] | null;
 };
 
 const defaultCustomIcon = new Icon({
@@ -21,7 +22,7 @@ const currentCustomIcon = new Icon({
 });
 
 export default function Map(props: MapProps): JSX.Element {
-  const { city, offers } = props;
+  const { city, offers, activeOfferId } = props;
 
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
@@ -34,12 +35,9 @@ export default function Map(props: MapProps): JSX.Element {
           lat: point.location.latitude,
           lng: point.location.longitude,
         });
-
         marker
           .setIcon(
-            point.isFavorite
-              ? currentCustomIcon
-              : defaultCustomIcon,
+            point.id === activeOfferId ? currentCustomIcon : defaultCustomIcon,
           )
           .addTo(markerLayer);
       });
@@ -48,7 +46,7 @@ export default function Map(props: MapProps): JSX.Element {
         map.removeLayer(markerLayer);
       };
     }
-  }, [map, offers]);
+  }, [map, offers, activeOfferId]);
 
   return <div style={{ height: '100%' }} ref={mapRef}></div>;
 }

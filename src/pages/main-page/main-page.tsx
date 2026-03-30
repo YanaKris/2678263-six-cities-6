@@ -6,6 +6,7 @@ import Header from '../../components/header/header';
 import PlacesSorting from '../../components/places-sorting/places-sorting';
 import Map from '../../components/map/map';
 import { useState } from 'react';
+import { SORT, SortType } from '../../const';
 
 type MainPageProps = {
   offers: Offer[];
@@ -65,10 +66,28 @@ const cities: City[] = [
 
 export default function MainPage({ offers }: MainPageProps) {
   const [activeCity, setActiveCity] = useState(cities[0]);
+  const [sortType, setSortType] = useState<SortType>(SORT.POPULAR);
+  const [activeOfferId, setActiveOfferId] = useState<string | null>(null);
   const city = activeCity;
   const filteredOffers = offers.filter(
     (offer) => offer.city.name === city.name,
   );
+
+  const sortOffers = {
+    [SORT.POPULAR]: (items: Offer[]) => items,
+
+    [SORT.LOW_TO_HIGH]: (items: Offer[]) =>
+      [...items].sort((a, b) => a.price - b.price),
+
+    [SORT.HIGH_TO_LOW]: (items: Offer[]) =>
+      [...items].sort((a, b) => b.price - a.price),
+
+    [SORT.TOP_RATED]: (items: Offer[]) =>
+      [...items].sort((a, b) => b.rating - a.rating),
+  };
+
+  const sortedOffers = sortOffers[sortType](filteredOffers);
+
   return (
     <div className="page page--gray page--main">
       <Header />
@@ -94,12 +113,19 @@ export default function MainPage({ offers }: MainPageProps) {
               <b className="places__found">
                 {filteredOffers.length} places to stay in {city.name}
               </b>
-              <PlacesSorting />
-              <OfferList offers={filteredOffers} />
+              <PlacesSorting activeSort={sortType} onSortChange={setSortType} />
+              <OfferList
+                offers={sortedOffers}
+                onOfferHover={setActiveOfferId}
+              />
             </section>
             <div className="cities__right-section">
               <section className="cities__map map">
-                <Map city={city} offers={filteredOffers} />
+                <Map
+                  city={city}
+                  offers={sortedOffers}
+                  activeOfferId={activeOfferId}
+                />
               </section>
             </div>
           </div>
