@@ -1,15 +1,11 @@
 import OfferList from '../../components/offer-list/offer-list';
-import { Offer } from '../../type/offer';
 import { City } from '../../type/city';
 import CitiesList from '../../components/cities-list/cities-list';
 import Header from '../../components/header/header';
 import PlacesSorting from '../../components/places-sorting/places-sorting';
 import Map from '../../components/map/map';
-import { useState } from 'react';
-
-type MainPageProps = {
-  offers: Offer[];
-};
+import { useAppSelector } from '../../hooks';
+import { selectOffers, selectCity } from '../../store/selectors';
 
 // добавила временно для теста переключения городов
 const cities: City[] = [
@@ -63,12 +59,13 @@ const cities: City[] = [
   },
 ];
 
-export default function MainPage({ offers }: MainPageProps) {
-  const [activeCity, setActiveCity] = useState(cities[0]);
-  const city = activeCity;
-  const filteredOffers = offers.filter(
-    (offer) => offer.city.name === city.name,
-  );
+export default function MainPage() {
+
+  const offers = useAppSelector(selectOffers);
+  const cityName = useAppSelector(selectCity);
+  const city = cities.find((c) => c.name === cityName)!;
+  const filteredOffers = offers.filter((offer) => offer.city.name === cityName);
+
   return (
     <div className="page page--gray page--main">
       <Header />
@@ -76,15 +73,7 @@ export default function MainPage({ offers }: MainPageProps) {
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
           <section className="locations container">
-            <CitiesList
-              activeCity={city.name}
-              onCityClick={(cityName) => {
-                const selectedCity = cities.find((c) => c.name === cityName);
-                if (selectedCity) {
-                  setActiveCity(selectedCity);
-                }
-              }}
-            />
+            <CitiesList activeCity={city.name} />
           </section>
         </div>
         <div className="cities">
@@ -92,7 +81,7 @@ export default function MainPage({ offers }: MainPageProps) {
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
               <b className="places__found">
-                {filteredOffers.length} places to stay in {city.name}
+                {filteredOffers.length} places to stay in {cityName}
               </b>
               <PlacesSorting />
               <OfferList offers={filteredOffers} />

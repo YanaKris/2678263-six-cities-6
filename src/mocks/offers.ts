@@ -135,7 +135,6 @@ export const offers: Offer[] = [
       'Coffee machine',
       'Baby seat',
       'Kitchen',
-      'Dishwasher',
     ],
 
     host: {
@@ -207,7 +206,7 @@ export const offers: Offer[] = [
     type: OfferType.Apartment,
     price: 95,
 
-    previewImage:'img/apartment-02.jpg',
+    previewImage: 'img/apartment-02.jpg',
 
     city: {
       name: 'Paris',
@@ -238,9 +237,7 @@ export const offers: Offer[] = [
       isPro: true,
     },
 
-    images: [
-
-    ],
+    images: [],
 
     maxAdults: 2,
   },
@@ -281,8 +278,7 @@ export const offers: Offer[] = [
       isPro: false,
     },
 
-    images: [
-    ],
+    images: [],
 
     maxAdults: 1,
   },

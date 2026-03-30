@@ -1,16 +1,14 @@
 import { useParams, Navigate } from 'react-router-dom';
-import { Offer } from '../../type/offer';
 import { AppRoute } from '../../const';
 import ReviewForm from '../../components/review-form/review-form';
 import Header from '../../components/header/header';
 import OfferItem from '../../components/offer-item/offer-item';
+import { useAppSelector } from '../../hooks';
+import { selectOffers } from '../../store/selectors';
 
-type OfferPageProps = {
-  offers: Offer[];
-};
-
-export default function OfferPage({ offers }: OfferPageProps) {
+export default function OfferPage() {
   const { offerId } = useParams();
+  const offers = useAppSelector(selectOffers);
   const offer = offers.find((item) => item.id === offerId);
 
   if (!offer) {

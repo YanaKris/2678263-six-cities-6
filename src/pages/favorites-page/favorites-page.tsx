@@ -1,12 +1,11 @@
 import { Offer } from '../../type/offer';
 import OfferItem from '../../components/offer-item/offer-item';
 import Header from '../../components/header/header';
+import { useAppSelector } from '../../hooks';
+import { selectOffers } from '../../store/selectors';
 
-type FavoritesPageProps = {
-  offers: Offer[];
-};
-
-export default function FavoritesPage({ offers }: FavoritesPageProps) {
+export default function FavoritesPage() {
+  const offers = useAppSelector(selectOffers);
   const favoriteOffers = offers.filter((offer) => offer.isFavorite);
   const favoritesByCity = favoriteOffers.reduce<Record<string, Offer[]>>(
     (acc, offer) => {
@@ -20,7 +19,7 @@ export default function FavoritesPage({ offers }: FavoritesPageProps) {
 
       return acc;
     },
-    {}
+    {},
   );
 
   return (

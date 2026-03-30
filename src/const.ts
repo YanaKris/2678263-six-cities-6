@@ -39,3 +39,12 @@ export const CITIES: CityName[] = [
 export const MARKER_DEFAULT = 'img/pin.svg';
 
 export const MARKER_ACTIVE = 'img/pin-active.svg';
+
+export enum NameSpace {
+  Offers = 'OFFERS',
+  Offer = 'OFFER',
+  NearPlaces = 'NEAR_PLACES',
+  Reviews = 'REVIEWS',
+  Favorites= 'FAVORITES',
+  User = 'USER',
+}
