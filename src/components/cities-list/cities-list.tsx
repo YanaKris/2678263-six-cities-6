@@ -1,14 +1,14 @@
 import { CityName, CITIES } from '../../const';
+import { setCity } from '../../store/action';
+import { useAppDispatch } from '../../hooks';
 
 type CitiesListProps = {
   activeCity: CityName;
-  onCityClick: (city: CityName) => void;
 };
 
-export default function CitiesList({
-  activeCity,
-  onCityClick,
-}: CitiesListProps) {
+export default function CitiesList({ activeCity }: CitiesListProps) {
+  const dispatch = useAppDispatch();
+
   return (
     <ul className="locations__list tabs__list">
       {CITIES.map((city) => (
@@ -20,7 +20,7 @@ export default function CitiesList({
             href="#"
             onClick={(evt) => {
               evt.preventDefault();
-              onCityClick(city);
+              dispatch(setCity(city));
             }}
           >
             <span>{city}</span>

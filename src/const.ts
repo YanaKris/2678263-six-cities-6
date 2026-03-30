@@ -50,3 +50,11 @@ export const SORT = {
 export const SORT_OPTIONS = Object.values(SORT);
 
 export type SortType = (typeof SORT_OPTIONS)[number];
+export enum NameSpace {
+  Offers = 'OFFERS',
+  Offer = 'OFFER',
+  NearPlaces = 'NEAR_PLACES',
+  Reviews = 'REVIEWS',
+  Favorites= 'FAVORITES',
+  User = 'USER',
+}
