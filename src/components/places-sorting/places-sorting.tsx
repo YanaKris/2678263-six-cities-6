@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { SortType, SORT_OPTIONS } from '../../const';
+import { SORT, SortType, SORT_OPTIONS } from '../../const';
 
 type TypeSortProps = {
   activeSort: SortType;
@@ -26,28 +26,30 @@ export default function PlacesSorting({
         tabIndex={0}
         onClick={() => setIsOpen(!isOpen)}
       >
-        {activeSort}
+        {SORT[activeSort]}
         <svg className="places__sorting-arrow" width="7" height="4">
           <use xlinkHref="#icon-arrow-select"></use>
         </svg>
       </span>
 
-      {isOpen && (
-        <ul className="places__options places__options--custom places__options--opened">
-          {SORT_OPTIONS.map((option) => (
-            <li
-              key={option}
-              className={`places__option ${
-                option === activeSort ? 'places__option--active' : ''
-              }`}
-              tabIndex={0}
-              onClick={() => handleSortClick(option)}
-            >
-              {option}
-            </li>
-          ))}
-        </ul>
-      )}
+      <ul
+        className={`places__options places__options--custom ${
+          isOpen ? 'places__options--opened' : ''
+        }`}
+      >
+        {SORT_OPTIONS.map((option) => (
+          <li
+            key={SORT[option]}
+            className={`places__option ${
+              option === activeSort ? 'places__option--active' : ''
+            }`}
+            tabIndex={0}
+            onClick={() => handleSortClick(option)}
+          >
+            {SORT[option]}
+          </li>
+        ))}
+      </ul>
     </form>
   );
 }

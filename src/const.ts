@@ -56,6 +56,6 @@ export const SORT = {
   TOP_RATED: 'Top rated first',
 } as const;
 
-export const SORT_OPTIONS = Object.values(SORT);
+export type SortType = keyof typeof SORT;
 
-export type SortType = (typeof SORT_OPTIONS)[number];
+export const SORT_OPTIONS = Object.keys(SORT) as SortType[];
