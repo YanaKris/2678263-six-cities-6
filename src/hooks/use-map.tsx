@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import { map as leafletMap, tileLayer, Map as LeafletMap } from 'leaflet';
 import { City } from '../type/city';
 
@@ -7,7 +7,6 @@ export default function useMap(
   city: City,
 ) {
   const mapRefInstance = useRef<LeafletMap | null>(null);
-  const [map, setMap] = useState<LeafletMap | null>(null);
 
   useEffect(() => {
     if (!mapRef.current || mapRefInstance.current) {
@@ -27,8 +26,6 @@ export default function useMap(
     ).addTo(instance);
 
     mapRefInstance.current = instance;
-    setMap(instance);
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -41,5 +38,5 @@ export default function useMap(
     }
   }, [city.location.latitude, city.location.longitude, city.location.zoom]);
 
-  return map;
+  return mapRefInstance;
 }
