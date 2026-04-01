@@ -1,11 +1,21 @@
 import OfferList from '../../components/offer-list/offer-list';
+
 import { City } from '../../type/city';
 import CitiesList from '../../components/cities-list/cities-list';
 import Header from '../../components/header/header';
 import PlacesSorting from '../../components/places-sorting/places-sorting';
 import Map from '../../components/map/map';
-import { useAppSelector } from '../../hooks';
-import { selectOffers, selectCity } from '../../store/selectors';
+import { useState } from 'react';
+import { SortType } from '../../const';
+import { useAppSelector, useAppDispatch } from '../../hooks';
+import {
+  selectOffers,
+  selectCity,
+  selectSortType,
+} from '../../store/selectors';
+import { sortOffers } from '../../utils/sort';
+
+import { setSortType } from '../../store/action';
 
 // добавила временно для теста переключения городов
 const cities: City[] = [
@@ -60,11 +70,18 @@ const cities: City[] = [
 ];
 
 export default function MainPage() {
-
+  const dispatch = useAppDispatch();
+  const sortType = useAppSelector(selectSortType);
   const offers = useAppSelector(selectOffers);
   const cityName = useAppSelector(selectCity);
   const city = cities.find((c) => c.name === cityName)!;
   const filteredOffers = offers.filter((offer) => offer.city.name === cityName);
+  const sortedOffers = sortOffers[sortType](filteredOffers);
+  const [activeOfferId, setActiveOfferId] = useState<string | null>(null);
+
+  const handleSortChange = (newSort: SortType) => {
+    dispatch(setSortType(newSort));
+  };
 
   return (
     <div className="page page--gray page--main">
@@ -81,14 +98,24 @@ export default function MainPage() {
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
               <b className="places__found">
-                {filteredOffers.length} places to stay in {cityName}
+                {filteredOffers.length} places to stay in {city.name}
               </b>
-              <PlacesSorting />
-              <OfferList offers={filteredOffers} />
+              <PlacesSorting
+                activeSort={sortType}
+                onSortChange={handleSortChange}
+              />
+              <OfferList
+                offers={sortedOffers}
+                onOfferHover={setActiveOfferId}
+              />
             </section>
             <div className="cities__right-section">
               <section className="cities__map map">
-                <Map city={city} offers={filteredOffers} />
+                <Map
+                  city={city}
+                  offers={sortedOffers}
+                  activeOfferId={activeOfferId}
+                />
               </section>
             </div>
           </div>
