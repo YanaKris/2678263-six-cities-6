@@ -5,4 +5,11 @@ export const selectOffers = (state: State) => state[NameSpace.Offers].offers;
 
 export const selectCity = (state: State) => state[NameSpace.Offers].city;
 
-export const selectSortType = (state: State) => state[NameSpace.Offers].sortType;
+export const selectSortType = (state: State) =>
+  state[NameSpace.Offers].sortType;
+
+export const selectIsLoading = (state: State) =>
+  state[NameSpace.Offers].isLoading;
+
+export const selectCurrentOffer = (state: State) =>
+  state[NameSpace.Offers].currentOffer;

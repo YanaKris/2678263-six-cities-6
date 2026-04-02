@@ -1,83 +1,51 @@
 import OfferList from '../../components/offer-list/offer-list';
 
-import { City } from '../../type/city';
 import CitiesList from '../../components/cities-list/cities-list';
 import Header from '../../components/header/header';
 import PlacesSorting from '../../components/places-sorting/places-sorting';
 import Map from '../../components/map/map';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { SortType } from '../../const';
 import { useAppSelector, useAppDispatch } from '../../hooks';
 import {
   selectOffers,
   selectCity,
   selectSortType,
+  selectIsLoading,
 } from '../../store/selectors';
 import { sortOffers } from '../../utils/sort';
 
 import { setSortType } from '../../store/action';
-
-// добавила временно для теста переключения городов
-const cities: City[] = [
-  {
-    name: 'Paris',
-    location: {
-      latitude: 48.85661,
-      longitude: 2.351499,
-      zoom: 12,
-    },
-  },
-  {
-    name: 'Cologne',
-    location: {
-      latitude: 50.937531,
-      longitude: 6.960279,
-      zoom: 12,
-    },
-  },
-  {
-    name: 'Brussels',
-    location: {
-      latitude: 50.85045,
-      longitude: 4.34878,
-      zoom: 12,
-    },
-  },
-  {
-    name: 'Amsterdam',
-    location: {
-      latitude: 52.370216,
-      longitude: 4.895168,
-      zoom: 12,
-    },
-  },
-  {
-    name: 'Hamburg',
-    location: {
-      latitude: 53.551086,
-      longitude: 9.993682,
-      zoom: 12,
-    },
-  },
-  {
-    name: 'Dusseldorf',
-    location: {
-      latitude: 51.227741,
-      longitude: 6.773456,
-      zoom: 12,
-    },
-  },
-];
+import { fetchOffersAction } from '../../store/api-actions';
+import Spinner from '../../components/spinner/spinner';
 
 export default function MainPage() {
   const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(fetchOffersAction());
+  }, [dispatch]);
+
   const sortType = useAppSelector(selectSortType);
   const offers = useAppSelector(selectOffers);
   const cityName = useAppSelector(selectCity);
-  const city = cities.find((c) => c.name === cityName)!;
+  const isLoading = useAppSelector(selectIsLoading);
+
+  const [activeOfferId, setActiveOfferId] = useState<string | null>(null);
+
+  if (isLoading) {
+    return <Spinner />;
+  }
+
+  const currentCityOffer = offers.find((offer) => offer.city.name === cityName);
+  const city = currentCityOffer?.city;
+
+  if (!city) {
+    return <div>No offers available for {cityName}</div>;
+  }
+
   const filteredOffers = offers.filter((offer) => offer.city.name === cityName);
   const sortedOffers = sortOffers[sortType](filteredOffers);
-  const [activeOfferId, setActiveOfferId] = useState<string | null>(null);
 
   const handleSortChange = (newSort: SortType) => {
     dispatch(setSortType(newSort));

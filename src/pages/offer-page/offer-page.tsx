@@ -3,20 +3,40 @@ import { AppRoute } from '../../const';
 import ReviewForm from '../../components/review-form/review-form';
 import Header from '../../components/header/header';
 import OfferItem from '../../components/offer-item/offer-item';
-import { useAppSelector } from '../../hooks';
-import { selectOffers } from '../../store/selectors';
+import { useAppSelector, useAppDispatch } from '../../hooks';
+import { selectOffers, selectCurrentOffer } from '../../store/selectors';
+import Spinner from '../../components/spinner/spinner';
+import { selectIsLoading } from '../../store/selectors';
+import { useEffect } from 'react';
+import { fetchOfferByIdAction } from '../../store/api-actions';
 
 export default function OfferPage() {
   const { offerId } = useParams();
-  const offers = useAppSelector(selectOffers);
-  const offer = offers.find((item) => item.id === offerId);
+  const dispatch = useAppDispatch();
 
+  useEffect(() => {
+    if (offerId) {
+      dispatch(fetchOfferByIdAction(offerId));
+    }
+  }, [offerId, dispatch]);
+  const offer = useAppSelector(selectCurrentOffer);
+  const isLoading = useAppSelector(selectIsLoading);
+  const offers = useAppSelector(selectOffers);
+
+  if (isLoading) {
+    return <Spinner />;
+  }
   if (!offer) {
     return <Navigate to={AppRoute.NotFound} />;
   }
+
+
   const nearbyOffers = offers
-    .filter((item) => item.id !== offer.id)
+    .filter(
+      (item) => item.city.name === offer.city.name && item.id !== offer.id,
+    )
     .slice(0, 3);
+
   const { images } = offer;
 
   return (
@@ -86,7 +106,7 @@ export default function OfferPage() {
               <div className="offer__inside">
                 <h2 className="offer__inside-title">What&apos;s inside</h2>
                 <ul className="offer__inside-list">
-                  {offer.goods.map((good) => (
+                  {offer.goods?.map((good) => (
                     <li key={good} className="offer__inside-item">
                       {good}
                     </li>
@@ -99,14 +119,16 @@ export default function OfferPage() {
                   <div className="offer__avatar-wrapper offer__avatar-wrapper--pro user__avatar-wrapper">
                     <img
                       className="offer__avatar user__avatar"
-                      src={offer.host.avatarUrl}
+                      src={offer.host?.avatarUrl}
                       width="74"
                       height="74"
                       alt="Host avatar"
                     />
                   </div>
-                  <span className="offer__user-name">{offer.host.name}</span>
-                  <span className="offer__user-status">{offer.host.isPro}</span>
+                  <span className="offer__user-name">{offer.host?.name}</span>
+                  <span className="offer__user-status">
+                    {offer.host?.isPro}
+                  </span>
                 </div>
                 <div className="offer__description">
                   <p className="offer__text">{offer.description}</p>
