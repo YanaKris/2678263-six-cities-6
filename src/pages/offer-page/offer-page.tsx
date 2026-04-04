@@ -6,7 +6,7 @@ import OfferItem from '../../components/offer-item/offer-item';
 import { useAppSelector, useAppDispatch } from '../../hooks';
 import { selectOffers, selectCurrentOffer } from '../../store/selectors';
 import Spinner from '../../components/spinner/spinner';
-import { selectIsLoading } from '../../store/selectors';
+import { selectIsOfferLoading} from '../../store/selectors';
 import { useEffect } from 'react';
 import { fetchOfferByIdAction } from '../../store/api-actions';
 
@@ -20,7 +20,7 @@ export default function OfferPage() {
     }
   }, [offerId, dispatch]);
   const offer = useAppSelector(selectCurrentOffer);
-  const isLoading = useAppSelector(selectIsLoading);
+  const isLoading = useAppSelector(selectIsOfferLoading);
   const offers = useAppSelector(selectOffers);
 
   if (isLoading) {

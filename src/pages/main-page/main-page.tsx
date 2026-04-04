@@ -11,7 +11,7 @@ import {
   selectOffers,
   selectCity,
   selectSortType,
-  selectIsLoading,
+  selectIsOffersLoading,
 } from '../../store/selectors';
 import { sortOffers } from '../../utils/sort';
 
@@ -29,7 +29,7 @@ export default function MainPage() {
   const sortType = useAppSelector(selectSortType);
   const offers = useAppSelector(selectOffers);
   const cityName = useAppSelector(selectCity);
-  const isLoading = useAppSelector(selectIsLoading);
+  const isLoading = useAppSelector(selectIsOffersLoading);
 
   const [activeOfferId, setActiveOfferId] = useState<string | null>(null);
 

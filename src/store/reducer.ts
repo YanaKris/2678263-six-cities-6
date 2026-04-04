@@ -1,7 +1,7 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { Offer } from '../type/offer';
 import { City } from '../type/city';
-import { setOffers, setCity, setSortType } from './action';
+import { setCity, setSortType } from './action';
 import { SortType } from '../const';
 import { fetchOffersAction, fetchOfferByIdAction } from './api-actions';
 
@@ -10,13 +10,15 @@ const initialState: {
   offers: Offer[];
   currentOffer: Offer | null;
   sortType: SortType;
-  isLoading: boolean;
+  isOffersLoading: boolean;
+  isOfferLoading: boolean;
 } = {
   city: 'Paris',
   offers: [],
   currentOffer: null,
   sortType: 'POPULAR',
-  isLoading: false,
+  isOffersLoading: false,
+  isOfferLoading: false,
 };
 
 export const reducer = createReducer(initialState, (builder) => {
@@ -24,30 +26,28 @@ export const reducer = createReducer(initialState, (builder) => {
     .addCase(setCity, (state, action) => {
       state.city = action.payload;
     })
-    .addCase(setOffers, (state, action) => {
-      state.offers = action.payload;
-    })
     .addCase(setSortType, (state, action) => {
       state.sortType = action.payload;
     })
     .addCase(fetchOffersAction.pending, (state) => {
-      state.isLoading = true;
+      state.isOffersLoading = true;
     })
     .addCase(fetchOffersAction.fulfilled, (state, action) => {
       state.offers = action.payload;
-      state.isLoading = false;
+      state.isOffersLoading = false;
     })
     .addCase(fetchOffersAction.rejected, (state) => {
-      state.isLoading = false;
+      state.isOffersLoading = false;
     })
     .addCase(fetchOfferByIdAction.pending, (state) => {
-      state.isLoading = true;
+      state.isOfferLoading = true;
+      state.currentOffer = null;
     })
     .addCase(fetchOfferByIdAction.fulfilled, (state, action) => {
       state.currentOffer = action.payload;
-      state.isLoading = false;
+      state.isOfferLoading = false;
     })
     .addCase(fetchOfferByIdAction.rejected, (state) => {
-      state.isLoading = false;
+      state.isOfferLoading = false;
     });
 });
