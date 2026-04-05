@@ -1,27 +1,43 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AxiosInstance } from 'axios';
 import { Offer } from '../type/offer';
+import {
+  setOffers,
+  setCurrentOffer,
+  setOffersLoading,
+  setOfferLoading,
+} from './action';
 
 export const fetchOffersAction = createAsyncThunk<
-  Offer[],
+  void,
   undefined,
   { extra: AxiosInstance }
->(
-  'offers/fetchOffers',
-  async (_arg, { extra: api }) => {
+>('offers/fetchOffers', async (_arg, { dispatch, extra: api }) => {
+  dispatch(setOffersLoading(true));
+
+  try {
     const { data } = await api.get<Offer[]>('/offers');
-    return data;
+    dispatch(setOffers(data));
+  } catch (e) {
+  } finally {
+    dispatch(setOffersLoading(false));
   }
-);
+});
 
 export const fetchOfferByIdAction = createAsyncThunk<
-  Offer,
+  void,
   string,
   { extra: AxiosInstance }
->(
-  'offer/fetchById',
-  async (offerId, { extra: api }) => {
+>('offer/fetchById', async (offerId, { dispatch, extra: api }) => {
+  dispatch(setOfferLoading(true));
+  dispatch(setCurrentOffer(null));
+
+  try {
     const { data } = await api.get<Offer>(`/offers/${offerId}`);
-    return data;
+    dispatch(setCurrentOffer(data));
+  } catch (e) {
+    dispatch(setCurrentOffer(null));
+  } finally {
+    dispatch(setOfferLoading(false));
   }
-);
+});
