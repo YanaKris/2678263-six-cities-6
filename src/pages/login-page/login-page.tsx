@@ -1,7 +1,30 @@
 import { Link } from 'react-router-dom';
-import { AppRoute } from '../../const';
+import { AppRoute, AuthorizationStatus } from '../../const';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { loginAction } from '../../store/api-actions';
+import { useNavigate } from 'react-router-dom';
+import { selectAuthorizationStatus } from '../../store/selectors';
+import { useEffect } from 'react';
 
 export default function LoginPage() {
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+  const authorizationStatus = useAppSelector(selectAuthorizationStatus);
+
+  useEffect(() => {
+    if (authorizationStatus === AuthorizationStatus.Auth) {
+      navigate(AppRoute.Main);
+    }
+  }, [authorizationStatus, navigate]);
+  const handleSubmit = (evt: React.FormEvent<HTMLFormElement>) => {
+    evt.preventDefault();
+
+    const formData = new FormData(evt.currentTarget);
+    const email = formData.get('email') as string;
+    const password = formData.get('password') as string;
+
+    dispatch(loginAction({ email, password }));
+  };
   return (
     <div className="page page--gray page--login">
       <header className="header">
@@ -26,7 +49,12 @@ export default function LoginPage() {
         <div className="page__login-container container">
           <section className="login">
             <h1 className="login__title">Sign in</h1>
-            <form className="login__form form" action="#" method="post">
+            <form
+              className="login__form form"
+              action="#"
+              method="post"
+              onSubmit={handleSubmit}
+            >
               <div className="login__input-wrapper form__input-wrapper">
                 <label className="visually-hidden">E-mail</label>
                 <input
@@ -37,6 +65,7 @@ export default function LoginPage() {
                   required
                 />
               </div>
+
               <div className="login__input-wrapper form__input-wrapper">
                 <label className="visually-hidden">Password</label>
                 <input
@@ -47,6 +76,7 @@ export default function LoginPage() {
                   required
                 />
               </div>
+
               <button
                 className="login__submit form__submit button"
                 type="submit"

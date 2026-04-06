@@ -9,5 +9,15 @@ export const createAPI = (): AxiosInstance => {
     timeout: REQUEST_TIMEOUT,
   });
 
+  api.interceptors.request.use((config) => {
+    const token = localStorage.getItem('token');
+
+    if (token && config.url !== '/login') {
+      config.headers['X-Token'] = token;
+    }
+
+    return config;
+  });
+
   return api;
 };
