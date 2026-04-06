@@ -16,3 +16,6 @@ export const selectIsOfferLoading = (state: State) =>
 
 export const selectCurrentOffer = (state: State) =>
   state[NameSpace.Offers].currentOffer;
+
+export const selectAuthorizationStatus = (state: State) =>
+  state[NameSpace.Offers].authorizationStatus;

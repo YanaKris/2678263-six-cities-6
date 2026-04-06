@@ -8,8 +8,9 @@ import {
   setCurrentOffer,
   setOffersLoading,
   setOfferLoading,
+  setAuthorizationStatus
 } from './action';
-import { SortType } from '../const';
+import { SortType, AuthorizationStatus } from '../const';
 
 const initialState: {
   city: City['name'];
@@ -18,6 +19,7 @@ const initialState: {
   sortType: SortType;
   isOffersLoading: boolean;
   isOfferLoading: boolean;
+  authorizationStatus: AuthorizationStatus;
 } = {
   city: 'Paris',
   offers: [],
@@ -25,6 +27,7 @@ const initialState: {
   sortType: 'POPULAR',
   isOffersLoading: false,
   isOfferLoading: false,
+  authorizationStatus: AuthorizationStatus.Unknown,
 };
 
 export const reducer = createReducer(initialState, (builder) => {
@@ -46,5 +49,8 @@ export const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(setOfferLoading, (state, action) => {
       state.isOfferLoading = action.payload;
+    })
+    .addCase(setAuthorizationStatus, (state, action) => {
+      state.authorizationStatus = action.payload;
     });
 });

@@ -6,7 +6,9 @@ import {
   setCurrentOffer,
   setOffersLoading,
   setOfferLoading,
+  setAuthorizationStatus,
 } from './action';
+import { AuthorizationStatus } from '../const';
 
 export const fetchOffersAction = createAsyncThunk<
   void,
@@ -43,6 +45,23 @@ export const fetchOfferByIdAction = createAsyncThunk<
       dispatch(setCurrentOffer(null));
     } finally {
       dispatch(setOfferLoading(false));
+    }
+  }
+);
+
+export const checkAuthAction = createAsyncThunk<
+  void,
+  undefined,
+  { extra: AxiosInstance }
+>(
+  'user/checkAuth',
+  async (_arg, { dispatch, extra: api }) => {
+    try {
+      await api.get('/login');
+
+      dispatch(setAuthorizationStatus(AuthorizationStatus.Auth));
+    } catch (error) {
+      dispatch(setAuthorizationStatus(AuthorizationStatus.NoAuth));
     }
   }
 );
