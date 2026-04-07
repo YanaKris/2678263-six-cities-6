@@ -8,9 +8,11 @@ import {
   setCurrentOffer,
   setOffersLoading,
   setOfferLoading,
-  setAuthorizationStatus
+  setAuthorizationStatus,
+  setUser,
 } from './action';
 import { SortType, AuthorizationStatus } from '../const';
+import { AuthUser } from '../type/auth';
 
 const initialState: {
   city: City['name'];
@@ -20,6 +22,7 @@ const initialState: {
   isOffersLoading: boolean;
   isOfferLoading: boolean;
   authorizationStatus: AuthorizationStatus;
+  user: AuthUser | null;
 } = {
   city: 'Paris',
   offers: [],
@@ -28,6 +31,7 @@ const initialState: {
   isOffersLoading: false,
   isOfferLoading: false,
   authorizationStatus: AuthorizationStatus.Unknown,
+  user: null as AuthUser | null,
 };
 
 export const reducer = createReducer(initialState, (builder) => {
@@ -52,5 +56,8 @@ export const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(setAuthorizationStatus, (state, action) => {
       state.authorizationStatus = action.payload;
+    })
+    .addCase(setUser, (state, action) => {
+      state.user = action.payload;
     });
 });

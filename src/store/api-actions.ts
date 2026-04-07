@@ -7,6 +7,7 @@ import {
   setOffersLoading,
   setOfferLoading,
   setAuthorizationStatus,
+  setUser,
 } from './action';
 import { AuthorizationStatus } from '../const';
 
@@ -77,6 +78,12 @@ export const loginAction = createAsyncThunk<
     email,
     password,
   });
+  dispatch(
+    setUser({
+      email: data.email,
+      token: data.token,
+    }),
+  );
 
   localStorage.setItem('token', data.token);
   dispatch(setAuthorizationStatus(AuthorizationStatus.Auth));

@@ -1,16 +1,21 @@
 import { Link } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus } from '../../const';
 import { useAppSelector, useAppDispatch } from '../../hooks';
-import { selectAuthorizationStatus } from '../../store/selectors';
-import { setAuthorizationStatus } from '../../store/action';
+import {
+  selectAuthorizationStatus,
+  selectUserEmail,
+} from '../../store/selectors';
+import { setAuthorizationStatus, setUser } from '../../store/action';
 
 export default function Header() {
   const dispatch = useAppDispatch();
   const authorizationStatus = useAppSelector(selectAuthorizationStatus);
+  const userEmail = useAppSelector(selectUserEmail);
 
   const handleLogout = () => {
     localStorage.removeItem('token');
     dispatch(setAuthorizationStatus(AuthorizationStatus.NoAuth));
+    dispatch(setUser(null));
   };
 
   return (
@@ -40,7 +45,7 @@ export default function Header() {
                     >
                       <div className="header__avatar-wrapper user__avatar-wrapper"></div>
                       <span className="header__user-name user__name">
-                        Oliver.conner@gmail.com
+                        {userEmail}
                       </span>
                       <span className="header__favorite-count">3</span>
                     </Link>

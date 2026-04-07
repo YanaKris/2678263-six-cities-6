@@ -12,7 +12,6 @@ import {
   selectCity,
   selectSortType,
   selectIsOffersLoading,
-  selectAuthorizationStatus
 } from '../../store/selectors';
 import { sortOffers } from '../../utils/sort';
 
@@ -22,8 +21,6 @@ import Spinner from '../../components/spinner/spinner';
 
 export default function MainPage() {
   const dispatch = useAppDispatch();
-
-  const authStatus = useAppSelector(selectAuthorizationStatus);
 
   useEffect(() => {
     dispatch(fetchOffersAction());
@@ -71,7 +68,6 @@ export default function MainPage() {
               <b className="places__found">
                 {filteredOffers.length} places to stay in {city.name}
               </b>
-              <p>{authStatus}</p>
               <PlacesSorting
                 activeSort={sortType}
                 onSortChange={handleSortChange}

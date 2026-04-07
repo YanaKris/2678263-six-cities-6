@@ -19,3 +19,8 @@ export const selectCurrentOffer = (state: State) =>
 
 export const selectAuthorizationStatus = (state: State) =>
   state[NameSpace.Offers].authorizationStatus;
+
+export const selectUser = (state: State) => state[NameSpace.Offers].user;
+
+export const selectUserEmail = (state: State) =>
+  state[NameSpace.Offers].user?.email;
