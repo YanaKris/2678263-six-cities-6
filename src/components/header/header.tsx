@@ -6,6 +6,7 @@ import {
   selectUserEmail,
 } from '../../store/selectors';
 import { setAuthorizationStatus, setUser } from '../../store/action';
+import { dropToken } from '../../services/token';
 
 export default function Header() {
   const dispatch = useAppDispatch();
@@ -13,7 +14,7 @@ export default function Header() {
   const userEmail = useAppSelector(selectUserEmail);
 
   const handleLogout = () => {
-    localStorage.removeItem('token');
+    dropToken();
     dispatch(setAuthorizationStatus(AuthorizationStatus.NoAuth));
     dispatch(setUser(null));
   };

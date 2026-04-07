@@ -31,7 +31,7 @@ const initialState: {
   isOffersLoading: false,
   isOfferLoading: false,
   authorizationStatus: AuthorizationStatus.Unknown,
-  user: null as AuthUser | null,
+  user: null,
 };
 
 export const reducer = createReducer(initialState, (builder) => {

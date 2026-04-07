@@ -10,6 +10,7 @@ import {
   setUser,
 } from './action';
 import { AuthorizationStatus } from '../const';
+import { saveToken } from '../services/token';
 
 type AuthData = {
   email: string;
@@ -85,6 +86,6 @@ export const loginAction = createAsyncThunk<
     }),
   );
 
-  localStorage.setItem('token', data.token);
+  saveToken(data.token);
   dispatch(setAuthorizationStatus(AuthorizationStatus.Auth));
 });
