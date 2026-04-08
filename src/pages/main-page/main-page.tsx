@@ -5,7 +5,7 @@ import Header from '../../components/header/header';
 import PlacesSorting from '../../components/places-sorting/places-sorting';
 import Map from '../../components/map/map';
 import { useState, useEffect } from 'react';
-import { SortType } from '../../const';
+import { SortType} from '../../const';
 import { useAppSelector, useAppDispatch } from '../../hooks';
 import {
   selectOffers,

@@ -5,9 +5,18 @@ import FavoritesPage from './pages/favorites-page/favorites-page';
 import OfferPage from './pages/offer-page/offer-page';
 import PrivateRoute from './components/private-route/private-route';
 import { Route, BrowserRouter, Routes } from 'react-router-dom';
-import { AppRoute, AuthorizationStatus } from './const';
+import { AppRoute } from './const';
+import { useAppDispatch } from './hooks';
+import { checkAuthAction } from './store/api-actions';
+import { useEffect } from 'react';
 
 export default function App() {
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(checkAuthAction());
+  }, [dispatch]);
+
   return (
     <BrowserRouter>
       <Routes>
@@ -19,7 +28,7 @@ export default function App() {
         <Route
           path={AppRoute.Favorites}
           element={
-            <PrivateRoute authorizationStatus={AuthorizationStatus.Auth}>
+            <PrivateRoute>
               <FavoritesPage />
             </PrivateRoute>
           }
