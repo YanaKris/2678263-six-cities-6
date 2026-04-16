@@ -1,21 +1,56 @@
 import { test, expect } from '@playwright/test';
 import { PlacesSortingPage } from './pages/places-sorting-page';
-import { SORT_OPTIONS, SORT } from '../src/const';
 
-test('user can change all sort types', async ({ page }) => {
+test('places are sorted by popularity (default order)', async ({ page }) => {
   const sortingPage = new PlacesSortingPage(page);
 
   await sortingPage.open();
 
-  for (const sortKey of SORT_OPTIONS) {
-    const expectedText = SORT[sortKey];
-    console.log('Selecting sort:', expectedText);
+  const initialPrices = await sortingPage.getPrices();
 
-    await sortingPage.selectSort(expectedText);
+  await sortingPage.selectSort('sorting-option-LOW_TO_HIGH');
+  await sortingPage.selectSort('sorting-option-POPULAR');
 
-    const currentSort = await sortingPage.getCurrentSortText();
-    console.log('Current sort:', currentSort);
+  const currentPrices = await sortingPage.getPrices();
 
-    expect(currentSort).toContain(expectedText);
-  }
+  expect(currentPrices).toEqual(initialPrices);
+});
+
+test('sort by price high to low works correctly', async ({ page }) => {
+  const sortingPage = new PlacesSortingPage(page);
+
+  await sortingPage.open();
+
+  await sortingPage.selectSort('sorting-option-HIGH_TO_LOW');
+
+  const prices = await sortingPage.getPrices();
+  const sorted = [...prices].sort((a, b) => b - a);
+
+  expect(prices).toEqual(sorted);
+});
+
+test('sort by price low to high works correctly', async ({ page }) => {
+  const sortingPage = new PlacesSortingPage(page);
+
+  await sortingPage.open();
+
+  await sortingPage.selectSort('sorting-option-LOW_TO_HIGH');
+
+  const prices = await sortingPage.getPrices();
+  const sorted = [...prices].sort((a, b) => a - b);
+
+  expect(prices).toEqual(sorted);
+});
+
+test('places are sorted by rating (top rated first)', async ({ page }) => {
+  const sortingPage = new PlacesSortingPage(page);
+
+  await sortingPage.open();
+
+  await sortingPage.selectSort('sorting-option-TOP_RATED');
+
+  const ratings = await sortingPage.getRatings();
+  const sorted = [...ratings].sort((a, b) => b - a);
+
+  expect(ratings).toEqual(sorted);
 });
